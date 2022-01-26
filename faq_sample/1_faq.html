@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="assets/css/fontawesome/all.css">
+    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+    <title>FAQ</title>
+
+    <style>
+        .faq-item-body {
+            display: none;
+        }
+
+        .faq-icon {
+            transition: 0.5s;
+        }
+
+        .faq-icon.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="mt-5">
+                    <h3 class="text-primary">FAQ Sample (Apply JQuery)</h3>
+                    <p class="text-black-50 mb-5">Bootstrap & JQuery</p>
+
+                    <div class="border rounded faq-list">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="assets/js/jquery.js"></script>
+
+<script>
+
+
+    const lists = [
+
+            {
+                "userId": 1,
+                "id": 1,
+                "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+            },
+            {
+                "userId": 1,
+                "id": 2,
+                "title": "qui est esse",
+                "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+            },
+            {
+                "userId": 1,
+                "id": 3,
+                "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+                "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+            },
+            {
+                "userId": 1,
+                "id": 4,
+                "title": "eum et est occaecati",
+                "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+            },
+            {
+                "userId": 1,
+                "id": 5,
+                "title": "nesciunt quas odio",
+                "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+            },
+            {
+                "userId": 1,
+                "id": 6,
+                "title": "dolorem eum magni eos aperiam quia",
+                "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+            },
+            {
+                "userId": 1,
+                "id": 7,
+                "title": "magnam facilis autem",
+                "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
+            },
+            {
+                "userId": 1,
+                "id": 8,
+                "title": "dolorem dolore est ipsam",
+                "body": "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae"
+            },
+            {
+                "userId": 1,
+                "id": 9,
+                "title": "nesciunt iure omnis dolorem tempora et accusantium",
+                "body": "consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas"
+            },
+            {
+                "userId": 1,
+                "id": 10,
+                "title": "optio molestias id quia eum",
+                "body": "quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error"
+            }
+    ];
+
+    lists.map(list => {
+        $('.faq-list').append(`
+
+        <div class="faq-item">
+            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                <p class="mb-0 fw-bold faq-item-title">
+                    ${list.title}
+                </p>
+                <i class="fas fa-angle-down faq-icon"></i>
+            </div>
+
+            <div class="bg-light p-3 faq-item-body">
+                <p class="mb-0">
+                    ${list.body}
+                </p>
+            </div>
+        </div>
+
+    `)
+    });
+
+        $('.faq-item').click(function () {
+
+            // If another faq is open, this will close.
+            $('.faq-item-body').fadeOut();
+            $('.faq-icon').removeClass('rotate');
+
+            // If this was clicked, faq would be opened.
+            $(this).children('.faq-item-body').fadeToggle();
+            $(this).find('.faq-icon').toggleClass('rotate');
+        })
+
+
+
+</script>
+</body>
+</html>

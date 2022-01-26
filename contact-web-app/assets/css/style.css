@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.col-sm-2 {
+    width: 6.666667%
+}
+.col-sm-10 {
+    width: 93.333333%;
+}
+
+.show-photo img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>JavaScript Calculator</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			font-size: 30px;
+			font-family: Arial,serif;
+		}
+		body{
+			background-color: #000000;
+		}
+		.calc{
+			width: 400px;
+			margin: 100px auto;
+		}
+		.display{
+			color: #ffffff;
+			text-align: right;
+			font-size: 60px;
+			padding: 20px;
+		}
+		.keypad{
+
+		}
+		.keypad-table{
+
+		}
+		.keypad-table tr:first-child .key{
+			background-color: #a5a5a5;
+		}
+		.keypad-table tr:first-child .key:active{
+			background-color: #a5a5a590;
+		}
+		.keypad-table tr td:last-child .key{
+			background-color: #ffa45c;
+		}
+		.keypad-table tr td:last-child .key:active{
+			background-color: #ffa45ccc;
+		}
+		.key{
+			width: 90px;
+			height: 90px;
+			border: 1px solid black;
+			text-align: center;
+			line-height: 90px;
+			border-radius: 90px;
+			margin: 5px;
+			background-color: #333333;
+			color: #ffffff;
+			cursor: pointer;
+			user-select: none;
+		}
+		.key:active{
+			background-color: #33333390;
+		}
+	</style>
+</head>
+<body>
+
+<div class="calc">
+	<div class="display">0</div>
+	<div class="keypad">
+		<table class="keypad-table">
+			<tr>
+				<td>
+					<div class="key" onclick="allClear()">AC</div>
+				</td>
+				<td>
+					<div class="key" onclick="clearLast()">C</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('%')">%</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('/')">&divide;</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="key" onclick="showDisplay(7)">7</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(8)">8</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(9)">9</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('*')">&times;</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="key" onclick="showDisplay(4)">4</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(5)">5</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(6)">6</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('-')">&minus;</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="key" onclick="showDisplay(1)">1</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(2)">2</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay(3)">3</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('+')">&plus;</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="key" onclick="showDisplay(0)" style="width: 190px">0</div>
+				</td>
+				<td>
+					<div class="key" onclick="showDisplay('.')">.</div>
+				</td>
+				<td>
+					<div class="key" onclick="calculate()">=</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<script>
+
+    let displayBox = document.querySelector(".display");
+    let operator = ["+","-","*","/","%","."];
+
+
+
+    function showDisplay(x) {
+
+        let current = displayBox.innerHTML;
+        let lastIndex = current[current.length-1];
+
+        if(displayBox.innerHTML == 0){
+            return displayBox.innerHTML = x;
+        }else if(operator.includes(x) && operator.includes(lastIndex) ){
+            console.log(current.substring(0,current.length-1)+x);
+            return displayBox.innerHTML = `${current.substring(0,current.length-1)}${x}`;
+        }
+        return displayBox.innerHTML += x;
+    }
+
+    function calculate() {
+        let current = displayBox.innerHTML;
+        try{
+            displayBox.innerHTML = eval(current);
+        }catch (e) {
+            alert("Your Input is wrong");
+        }
+    }
+
+    function allClear() {
+        displayBox.innerHTML = 0;
+    }
+
+    function clearLast() {
+        let current = displayBox.innerHTML;
+        if(current.length == 1){
+            displayBox.innerHTML = 0;
+
+        }else{
+            displayBox.innerHTML = current.substring(0,current.length-1);
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

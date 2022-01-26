@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Add To Cart</title>
+
+	<link rel="stylesheet" href="assets/css/fontawesome/all.css">
+	<link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+
+	<style>
+
+		.product {
+			border: none;
+		}
+
+		.product img {
+			height: 130px;
+			width: 130px;
+			margin-bottom: -50px;
+			margin-left: 1rem;
+			position: relative;
+			z-index: 0;
+			transition: 0.5s;
+		}
+		.product:hover img{
+			transform: scale(1.05) rotate(-10deg);
+		}
+
+
+		.product .card-title {
+			margin-top: 50px;
+
+		}
+
+		.product .card-body {
+			border: 1px solid #dee2e6;
+			border-radius:  3px 3px 0 0;
+		}
+
+		.card-footer {
+			background: none;
+			border: 1px solid #dee2e6;
+		}
+
+		.number-form {
+			padding: 0.2rem 0.5rem !important;
+		}
+
+
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col-10">
+			<div class="">
+				<div class="row min-vh-100">
+					<div class="col-8 border-end ">
+
+						<div class="d-flex justify-content-between align-items-end my-3">
+
+							<div class="">
+								<h4 class="text-primary mb-0">My Shop</h4>
+								<small class="text-black-50">Bootstrap & JQuery</small>
+							</div>
+
+							<div class="">
+								<div class="row">
+									<div class="col-auto">
+										<input type="text" class="form-control text-capitalize" id="search" placeholder="search item">
+									</div>
+									<div class="col-auto">
+										<select class="form-select" name="" id="category">
+											<option value="">All Categories</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div id="products" class="row row-cols-3 g-4">
+
+						</div>
+					</div>
+
+
+					<div class="col-4">
+
+						<div class="d-flex justify-content-between align-items-end my-3">
+							<div class="">
+								<h4 class="text-primary mb-0">My Shop</h4>
+								<small class="text-black-50">Added Items</small>
+							</div>
+
+							<div class="">
+								<h4>
+									<span class="item-in-card">0</span>
+									<i class="fas fa-shopping-cart text-primary"></i>
+								</h4>
+							</div>
+						</div>
+
+						<div id="cart">
+
+						</div>
+
+					</div>
+
+
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/jquery.js"></script>
+
+<script>
+
+	let products = [];
+
+	function toShort(str, max = 50){
+	    if (str.length > max){
+					return str.substring(0,max) + ".....";
+			}
+
+	    return str;
+	}
+
+	function toShow(x){
+			$('#products').empty();
+      x.map( product => {
+          $('#products').append(`
+					<div class="col">
+							<div class="card h-100 product pt-4">
+									<img src="${product.image}" class="card-img-top" alt="">
+									<div class="card-body border-bottom-0">
+											<h5 class="card-title text-primary text-nowrap overflow-hidden"> ${product.title}</h5>
+											<small class="card-text text-black-50">${toShort(product.description, 120)}</small>
+									</div>
+
+									<div class="card-footer border-top-0 d-flex justify-content-between align-items-end">
+      								<span class="fw-bold">${product.price}</span>
+      								<button class="btn btn-sm btn-outline-primary add-to-cart" data-id="${product.id}">
+      										Add <i class="fas fa-cart-plus"></i>
+      								</button>
+      						</div>
+							</div>
+					</div>
+	        `)
+      })
+
+	}
+
+
+	$.get("https://fakestoreapi.com/products/", function (data) {
+	    products = data;
+	    toShow(products);
+  })
+
+	$('#search').on("keyup", function () {
+				let keywords = $(this).val().toLowerCase();
+				// $(".product").filter(function () {
+				// 		$(this).toggle($(this).text().toLowerCase().indexOf(keywords) > -1);
+        // });
+
+      if (keywords.trim().length){ // For {Space}
+          let filterProducts = products.filter( product => {
+              if(product.title.toLowerCase().indexOf(keywords) > -1 || product.description.toLowerCase().indexOf(keywords) > -1
+                  || product.price == keywords){
+                  return product;
+              }
+          })
+          toShow(filterProducts);
+			}
+  });
+
+	// For Categories
+
+	$.get("https://fakestoreapi.com/products/categories", function (data) {
+	    data.map(cat=>{
+	        $('#category').append(`<option value="${cat}">${cat}</option>`)
+			})
+  })
+
+	$('#category').on('change', function () {
+	    let selectedCategory = $(this).val();
+	    console.log(selectedCategory);
+
+	    if (selectedCategory){
+          let filterProducts = products.filter( product => {
+              if(product.category === selectedCategory){
+                  return product;
+              }
+          })
+          toShow(filterProducts);
+			}else {
+	        toShow(products);
+			}
+
+  })
+
+
+	$("#products").delegate(".add-to-cart","click", function () {
+	    let currentItemId = $(this).attr("data-id");
+	    let productInfo = products.filter(el => el.id == currentItemId)[0];
+	    $("#cart").append(`
+
+        <div class="card">
+      		<div class="card-body">
+
+        		<div class="d-flex justify-content-end">
+          		<img src="" alt="">
+          		<button class="btn btn-outline-danger">
+          			<i class="fas fa-trash-alt"></i>
+          		</button>
+          	</div>
+
+          	<p>This is title...</p>
+
+          	<div class="d-flex justify-content-between align-items-end">
+
+          		<div class="row">
+          			<div class="col d-flex align-items-center">
+          				<button class="btn btn-outline-primary btn-sm me-2">
+										<i class="fas fa-minus"></i>
+									</button>
+
+          				<input type="text" class="number-form form-control w-25 d-inline me-2">
+
+          				<button class="btn btn-outline-primary btn-sm">
+          					<i class="fas fa-plus"></i>
+          				</button>
+          		</div>
+          	</div>
+          		<p class="mb-0">$ <span>123</span></p>
+          	</div>
+
+          </div>
+         </div>
+
+
+
+
+
+
+
+	    `)
+
+  })
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

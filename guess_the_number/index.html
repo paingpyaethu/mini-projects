@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Guess The Number</title>
+
+	<link rel="icon" href="assets/icon/guessNum.svg">
+	<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+	<div class="game-wrapper">
+		<div class="game-data">
+			<h5 id="feedbackLabel" class="feedback-label"></h5>
+			<div class="score-data">
+				<h5 class="score-label">Score:<span id="score"> 0</span></h5>
+				<h5 class="score-label">High Score:<span id="highScore"> 0</span></h5>
+			</div>
+			<div class="lives-data">
+				<ion-icon class="heart" name="heart"></ion-icon>
+				<span id="livesCount" class="lives-count"> 5</span>
+			</div>
+			<div class="hidden-number-wrapper">
+				<div class="hidden-number-wrapper-inner">
+					<h5 id="hiddenNumberLabel" class="hidden-number-label">?</h5>
+				</div>
+			</div>
+		</div>
+		
+		<div class="">
+			<p>Previous Guesses: <span class="previousGuesses"></span></p>
+		</div>
+
+		<div class="game-controls">
+			<input id="userInput" type="text" class="guess" placeholder="Enter Your Guess">
+			<button id="playBtn" class="btn btn-blue">Play</button>
+			<button id="continueBtn" class="btn btn-orange" disabled>Continue</button>
+		</div>
+	</div>
+
+	<div class="modal" id="modal">
+		<h5 class="game-over">Game Over</h5>
+		<p>Would you like to continue?</p>
+		<button id="retryBtn" class="btn btn-blue retry">Retry</button>
+	</div>
+
+
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="assets/main.js"></script>
+</body>
+</html>
